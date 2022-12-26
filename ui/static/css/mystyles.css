@@ -1,0 +1,17 @@
+.header{
+    margin-top: 20px;
+}
+
+.form{
+    margin: 30px 500px 25px 500px;
+    border: 1px solid black;
+    border-radius: 10px;
+}
+
+th{
+    cursor: pointer;
+}
+
+td, th{
+    text-align: center;
+}
