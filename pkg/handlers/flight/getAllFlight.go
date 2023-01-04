@@ -3,7 +3,6 @@ package flight
 import (
 	"coursework/pkg/handlers"
 	"coursework/pkg/models/databaseModels/flight"
-	"fmt"
 	"strconv"
 )
 
@@ -35,19 +34,26 @@ func GetAllFlightsByUser(destination string, typeClass string) ([]flight.Transfo
 			return getFlights(flights), "К сожалению, мы ничего не нашли"
 		}
 
+		var ticket uint
+		for _, item := range flights {
+			ticket += item.EconomCapacity
+		}
+
 		return getFlights(flights), "К сожалению, мы не нашли для вас билеты бизнес-класса, но на найденные рейсы есть билеты эконом-класса " +
-			"в количестве " + strconv.Itoa(len(getFlights(flights)))
+			"в количестве " + strconv.Itoa(int(ticket))
 	} else if len(getFlights(flights)) == 0 && typeClass == "econom" {
 		db.Order("date asc").Where("destination = ?", destination).Where("business_capacity > 0").Find(&flights)
 		if len(getFlights(flights)) == 0 {
 			return getFlights(flights), "К сожалению, мы ничего не нашли"
 		}
-		number := string(rune(len(getFlights(flights))))
-		fmt.Println(number)
-		fmt.Println(len(getFlights(flights)))
+
+		var ticket uint
+		for _, item := range flights {
+			ticket += item.BusinessCapacity
+		}
 
 		return getFlights(flights), "К сожалению, мы не нашли для вас билеты эконом-класса, но на найденные рейсы есть билеты бизнес-класса " +
-			"в количестве " + strconv.Itoa(len(getFlights(flights)))
+			"в количестве " + strconv.Itoa(int(ticket))
 	} else {
 		return getFlights(flights), "По вашему поиску найдено следующее:"
 	}

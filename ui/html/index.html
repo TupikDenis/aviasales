@@ -15,6 +15,7 @@
     <div class="m-5">
         {{if eq .role 1}}
         <button type="button" class="btn btn-success" onclick="addPlane()">Создать новый рейс</button>
+        <button type="button" class="btn btn-success" onclick="getUsers()">Список пользоватeлей</button>
         {{end}}
         <button type="button" class="btn btn-danger" onclick="logout()">Выйти</button>
     </div>
@@ -90,11 +91,11 @@
     <form method="POST" class="form" action="/authentication">
         <div class="login p-3">
             <label for="login" class="form-label">Логин</label>
-            <input type="text" class="form-control" name="login" id="login"  min="5"placeholder="Логин" required>
+            <input type="text" class="form-control" name="login" id="login"  minlength="5"placeholder="Логин" required>
         </div>
         <div class="password p-3">
             <label for="password" class="form-label">Пароль</label>
-            <input type="password" class="form-control" name="password" id="password" min="5" placeholder="Пароль" required>
+            <input type="password" class="form-control" name="password" id="password" minlength="5" placeholder="Пароль" required>
         </div>
 
         <div class="btn p-3">

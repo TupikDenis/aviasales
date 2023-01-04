@@ -26,7 +26,7 @@ func CreateFlight(flightNumber uint, typeFlight string, destination string, date
 
 	err := db.AutoMigrate(&flight.Flight{})
 	if err != nil {
-		panic("Error: I can't add new user")
+		panic("Error: I can't add new flight")
 	}
 
 	db.Save(&planeAdd)

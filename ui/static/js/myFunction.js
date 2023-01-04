@@ -6,6 +6,10 @@ function addPlane(){
     window.location.href ='/flight';
 }
 
+function getUsers(){
+    window.location.href ='/users';
+}
+
 function buyTicket(id){
     window.location.href ='/ticket/' + id;
 }
@@ -27,12 +31,23 @@ function sortTable(n) {
             x = rows[i].getElementsByTagName("td")[n];
             y = rows[i + 1].getElementsByTagName("td")[n];
             if (dir === "asc") {
-                if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                if(n > 0 && n < 6) {
+                    if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                        shouldSwitch = true;
+                        break;
+                    }
+                } else if (Number(x.innerHTML) > Number(y.innerHTML)) {
                     shouldSwitch = true;
                     break;
                 }
+
             } else if (dir === "desc") {
-                if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+                if(n > 0 && n < 6) {
+                    if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+                        shouldSwitch = true;
+                        break;
+                    }
+                } else if (Number(x.innerHTML) < Number(y.innerHTML)) {
                     shouldSwitch = true;
                     break;
                 }
@@ -70,6 +85,14 @@ function maxCapacity(){
 
     businessCapacity.setAttribute("max", parseInt(capacityAll.value) - parseInt(economCapacity.value));
     economCapacity.setAttribute("max", parseInt(capacityAll.value) - parseInt(businessCapacity.value));
+
+    if(parseInt(businessCapacity.value) > parseInt(capacityAll.value)){
+        businessCapacity.value = parseInt(capacityAll.value) - parseInt(economCapacity.value);
+    }
+
+    if(parseInt(economCapacity.value) > parseInt(capacityAll.value)){
+        economCapacity.value = parseInt(capacityAll.value) - parseInt(businessCapacity.value);
+    }
 
     if(parseInt(economCapacity.value) + parseInt(businessCapacity.value) === 0){
         capacityAll.setAttribute("min", 1);

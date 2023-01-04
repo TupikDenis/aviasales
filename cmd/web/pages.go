@@ -2,6 +2,7 @@ package main
 
 import (
 	"coursework/pkg/handlers/flight"
+	"coursework/pkg/handlers/user"
 	"coursework/pkg/sevices/token"
 	"github.com/gin-gonic/gin"
 	"net/http"
@@ -114,6 +115,23 @@ func ticketPage(router *gin.Engine) {
 		c.HTML(http.StatusOK, "ticket_form.html", gin.H{
 			"title":  "Купить билет",
 			"flight": flightStruct,
+		})
+	})
+}
+
+func userPage(router *gin.Engine) {
+	router.GET("/users", func(c *gin.Context) {
+		getUser, err := token.ParseToken(tokenStr)
+
+		if err != nil && getUser.Role == 0 {
+			panic("Don't have rools to do this")
+		}
+
+		usersStruct := user.GetAllUsers()
+
+		c.HTML(http.StatusOK, "users_list.html", gin.H{
+			"title": "Список пользователей",
+			"users": usersStruct,
 		})
 	})
 }

@@ -6,7 +6,7 @@ import (
 
 type Flight struct {
 	gorm.Model
-	FlightNumber     uint   `json:"flight_number"`
+	FlightNumber     uint   `json:"flight_number" gorm:"uniqueIndex"`
 	TypeFlight       string `json:"type_flight"`
 	Destination      string `json:"destination"`
 	Date             string `json:"date"`
